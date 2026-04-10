@@ -1,0 +1,426 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1C2B4A;--teal:#0EA5E9;--teal-light:#E0F4FD;--teal-mid:#7DD3F8;
+  --g50:#F8F9FB;--g100:#F0F2F5;--g200:#E2E6EC;--g300:#CBD2DA;--g400:#9AA3B0;--g600:#5A6373;
+  --green-bg:#ECFDF5;--green-b:#34D399;--green-t:#065F46;
+  --red-bg:#FEF2F2;--red-b:#FCA5A5;--red-t:#991B1B;
+  --amber-bg:#FFFBEB;--amber-b:#FCD34D;--amber-t:#92400E;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{font-family:var(--font);background:var(--g50);color:var(--navy);font-size:13px;}
+
+.topbar{background:var(--navy);height:50px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-dot{width:24px;height:24px;border-radius:5px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+.brand-name{font-size:14px;font-weight:600;color:#fff;}
+.brand-div{width:1px;height:16px;background:rgba(255,255,255,.15);}
+.brand-sub{font-size:12px;color:rgba(255,255,255,.4);}
+.station-tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:99px;background:rgba(14,165,233,.2);color:var(--teal-mid);}
+.clk{font-size:12px;color:rgba(255,255,255,.35);font-variant-numeric:tabular-nums;}
+
+.scanbar{background:#fff;border-bottom:1px solid var(--g200);padding:10px 28px;display:flex;align-items:center;gap:12px;}
+.scanfield{display:flex;align-items:center;gap:8px;height:36px;background:var(--g50);border:1.5px solid var(--g200);border-radius:7px;padding:0 12px;width:400px;transition:border-color .15s;}
+.scanfield:focus-within{border-color:var(--teal);background:#fff;}
+.scanfield input{border:none;background:transparent;font-size:13px;font-family:var(--font);color:var(--navy);outline:none;flex:1;}
+.scanfield input::placeholder{color:var(--g400);}
+.scan-hint{font-size:12px;color:var(--g400);}
+.kbd{font-size:10px;padding:2px 5px;background:var(--g100);border:1px solid var(--g200);border-radius:3px;color:var(--g600);font-family:monospace;}
+
+.tbl-wrap{padding:20px 28px;}
+
+table{
+  border-collapse:separate;border-spacing:0;
+  width:100%;table-layout:fixed;
+  background:#fff;border:1px solid var(--g200);border-radius:12px;overflow:hidden;
+}
+
+col.c-rail   {width:108px;}
+col.c-part   {width:118px;}
+col.c-test   {width:94px;}
+col.c-visual {width:132px;}
+col.c-status {width:110px;}
+
+thead tr th{
+  background:var(--navy);color:rgba(255,255,255,.55);
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  padding:11px 12px;text-align:center;white-space:nowrap;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+thead tr th:first-child{text-align:left;padding-left:16px;}
+thead tr th:last-child{border-right:none;}
+.th-parts{color:var(--teal-mid);}
+.th-tests{color:#A5B4FC;}
+.th-status{color:rgba(255,255,255,.4);}
+
+tbody tr:not(:last-child) td{border-bottom:1px solid var(--g100);}
+tbody tr:hover td{background:#FAFBFC;}
+tbody td{padding:7px 6px;text-align:center;vertical-align:middle;border-right:1px solid var(--g100);}
+tbody td:first-child{text-align:left;padding-left:14px;border-right:1px solid var(--g200);}
+tbody td:last-child{border-right:none;}
+.sep-left{border-left:2px solid var(--g200) !important;}
+
+.rid{font-size:12px;font-weight:600;display:block;}
+.rtime{font-size:10px;color:var(--g400);display:block;margin-top:2px;}
+
+/* Part cell — NO checkmark, just ID text in green */
+.part-cell{
+  display:flex;align-items:center;justify-content:center;
+  height:44px;border-radius:7px;border:1.5px solid var(--g200);
+  background:var(--g50);margin:2px;transition:all .25s;
+}
+.part-cell.scanned{border-color:var(--green-b);background:var(--green-bg);}
+.part-val{font-size:11px;font-weight:600;color:var(--green-t);font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100px;padding:0 6px;}
+.part-empty{font-size:15px;color:var(--g300);font-weight:300;line-height:1;}
+
+/* Test cell */
+.test-cell{display:flex;align-items:center;justify-content:center;height:44px;border-radius:7px;border:1.5px solid var(--g200);background:var(--g50);margin:2px;transition:all .2s;}
+.test-cell.running{border-color:var(--amber-b);background:var(--amber-bg);}
+.test-cell.pass{border-color:var(--green-b);background:var(--green-bg);}
+.test-cell.fail{border-color:var(--red-b);background:var(--red-bg);cursor:pointer;}
+.test-cell.fail:hover{background:#fee2e2;border-color:#f87171;}
+.test-cell.fail:active{transform:scale(.96);}
+.t-pass{color:var(--green-t);}
+.t-fail{display:flex;align-items:center;gap:4px;color:var(--red-t);}
+.t-run{color:var(--amber-t);}
+
+/* Visual confirm cell */
+.vis-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;height:44px;border-radius:7px;border:1.5px solid var(--g200);background:var(--g50);margin:2px;padding:4px 6px;transition:all .3s;}
+.vis-cell.awaiting{border-color:#F59E0B;background:var(--amber-bg);animation:pulseA 1.6s ease-in-out infinite;}
+@keyframes pulseA{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0);}50%{box-shadow:0 0 0 5px rgba(245,158,11,.2);}}
+.vis-cell.pass{border-color:var(--green-b);background:var(--green-bg);}
+.vis-cell.fail-vis{border-color:var(--red-b);background:var(--red-bg);}
+.vis-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--amber-t);white-space:nowrap;}
+.vis-label.vpass{color:var(--green-t);}
+.vis-label.vfail{color:var(--red-t);}
+.vis-btns{display:flex;gap:5px;}
+.vbtn{padding:3px 10px;border-radius:5px;font-size:11px;font-weight:600;border:none;cursor:pointer;transition:opacity .15s,transform .1s;display:flex;align-items:center;gap:3px;}
+.vbtn:active{transform:scale(.94);}
+.vbtn:hover{opacity:.85;}
+.vbtn-yes{background:#10B981;color:#fff;}
+.vbtn-no{background:#F87171;color:#fff;}
+
+.status-td{padding:6px 10px !important;}
+.pill{font-size:11px;font-weight:500;padding:4px 11px;border-radius:99px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;}
+.pill-blue{background:var(--teal-light);color:#0369A1;}
+.pill-amber{background:var(--amber-bg);color:var(--amber-t);}
+.pill-green{background:var(--green-bg);color:var(--green-t);}
+.pill-red{background:var(--red-bg);color:var(--red-t);}
+
+.spin{width:9px;height:9px;border-radius:50%;border:1.5px solid currentColor;border-top-color:transparent;animation:spin .7s linear infinite;flex-shrink:0;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Rail assembly grid — one row per rail, columns for each part and test</h2>
+
+<div style="min-height:100vh;background:var(--g50);">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-dot">V</div>
+      <span class="brand-name">Vusion</span>
+      <div class="brand-div"></div>
+      <span class="brand-sub">Assembly QC</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="station-tag">FIH — Station 4</span>
+      <span class="clk" id="clk">--:--:--</span>
+    </div>
+  </div>
+
+  <div class="scanbar">
+    <div class="scanfield">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--g400);flex-shrink:0"><rect x="1" y="4" width="14" height="8" rx="1.5"/><line x1="4" y1="6.5" x2="4" y2="9.5"/><line x1="6.5" y1="6.5" x2="6.5" y2="9.5"/><line x1="8.5" y1="6.5" x2="10" y2="9.5"/><line x1="10" y1="6.5" x2="10" y2="9.5"/><line x1="12" y1="6.5" x2="12" y2="9.5"/></svg>
+      <input id="scanInput" type="text" placeholder="Scan any part ID to begin or update a rail…" autocomplete="off"/>
+    </div>
+    <span class="scan-hint">Press <span class="kbd">Enter</span> to submit</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <colgroup>
+        <col class="c-rail">
+        <col class="c-part"><col class="c-part"><col class="c-part">
+        <col class="c-part"><col class="c-part"><col class="c-part">
+        <col class="c-test"><col class="c-test"><col class="c-test">
+        <col class="c-test"><col class="c-test">
+        <col class="c-visual">
+        <col class="c-status">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Rail</th>
+          <th class="th-parts">Camera</th>
+          <th class="th-parts">ESL</th>
+          <th class="th-parts">Battery</th>
+          <th class="th-parts">Rail ID</th>
+          <th class="th-parts">End cap</th>
+          <th class="th-parts">ESL end</th>
+          <th class="th-tests sep-left">BLE token</th>
+          <th class="th-tests">Wi-Fi</th>
+          <th class="th-tests">Motor</th>
+          <th class="th-tests">Camera</th>
+          <th class="th-tests">LEDs</th>
+          <th class="th-tests">Visual confirm</th>
+          <th class="th-status">Status</th>
+        </tr>
+      </thead>
+      <tbody id="railBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const PARTS=[
+  {id:'camera',label:'Camera'},
+  {id:'esl',   label:'ESL'},
+  {id:'battery',label:'Battery'},
+  {id:'rail',  label:'Rail ID'},
+  {id:'endcap',label:'End cap'},
+  {id:'eslend',label:'ESL end'},
+];
+const TESTS=[
+  {id:'ble',  label:'BLE'},
+  {id:'wifi', label:'Wi-Fi'},
+  {id:'motor',label:'Motor'},
+  {id:'tcam', label:'Camera'},
+  {id:'leds', label:'LEDs'},
+];
+
+let rails=[];let ctr=1;
+
+function ts(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(()=>{const e=document.getElementById('clk');if(e)e.textContent=ts();},1000);
+document.getElementById('clk').textContent=ts();
+
+function byId(id){return rails.find(r=>r.id===id);}
+
+function guessType(code){
+  const u=code.toUpperCase();
+  if(u.startsWith('ESLEND')||u.startsWith('ESE'))return'eslend';
+  if(u.startsWith('ESL'))return'esl';
+  if(u.startsWith('CAM'))return'camera';
+  if(u.startsWith('BAT'))return'battery';
+  if(u.startsWith('RAIL'))return'rail';
+  if(u.startsWith('CAP')||u.startsWith('END'))return'endcap';
+  return PARTS[(parseInt(code.replace(/\D/g,''),10)||1)%PARTS.length].id;
+}
+
+function newRail(){
+  const r={id:'RAIL-'+String(ctr++).padStart(3,'0'),time:ts(),parts:{},tests:{},visual:'idle',status:'scanning',done:false};
+  PARTS.forEach(p=>r.parts[p.id]=null);
+  TESTS.forEach(t=>r.tests[t.id]='idle');
+  return r;
+}
+
+function allScanned(r){return PARTS.every(p=>r.parts[p.id]!==null);}
+
+function runOneTest(railId,tid,delay){
+  setTimeout(()=>{
+    const r=byId(railId);if(!r)return;
+    r.tests[tid]='running';renderRow(railId);
+    setTimeout(()=>{
+      const r2=byId(railId);if(!r2)return;
+      r2.tests[tid]=Math.random()>.15?'pass':'fail';
+      checkDone(r2);renderRow(railId);
+    },700+Math.random()*800);
+  },delay);
+}
+
+function startTests(r){
+  r.status='testing';
+  let d=300;
+  TESTS.forEach(t=>{runOneTest(r.id,t.id,d);d+=480+Math.random()*380;});
+}
+
+function checkDone(r){
+  const allAuto=TESTS.every(t=>['pass','fail'].includes(r.tests[t.id]));
+  if(allAuto&&r.visual==='idle')r.visual='awaiting';
+  if(allAuto&&(r.visual==='pass'||r.visual==='fail'))finalise(r);
+}
+
+function finalise(r){
+  r.status=TESTS.some(t=>r.tests[t.id]==='fail')||r.visual==='fail'?'fail':'pass';
+  r.done=true;
+}
+
+function handleScan(code){
+  code=code.trim();if(!code)return;
+  const pt=guessType(code);
+  let target=null;
+  for(const r of rails){if(r.status==='scanning'&&r.parts[pt]===null){target=r;break;}}
+  if(!target){const nr=newRail();rails.unshift(nr);target=nr;}
+  target.parts[pt]=code;
+  if(allScanned(target))startTests(target);
+  renderAll();
+}
+
+window.retryTest=function(railId,tid){
+  const r=byId(railId);if(!r)return;
+  r.tests[tid]='running';r.done=false;r.status='testing';
+  renderRow(railId);
+  setTimeout(()=>{
+    const r2=byId(railId);if(!r2)return;
+    r2.tests[tid]=Math.random()>.2?'pass':'fail';
+    const allDone=TESTS.every(t=>['pass','fail'].includes(r2.tests[t.id]));
+    if(allDone&&r2.visual!=='idle')finalise(r2);
+    renderRow(railId);
+  },900+Math.random()*600);
+};
+
+window.confirmVisual=function(railId,result){
+  const r=byId(railId);if(!r)return;
+  r.visual=result?'pass':'fail';
+  const allDone=TESTS.every(t=>['pass','fail'].includes(r.tests[t.id]));
+  if(allDone)finalise(r);
+  renderRow(railId);
+};
+
+const iCheck=`<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1.5,6 4.5,9.5 10.5,2.5"/></svg>`;
+const iX=`<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5"/><line x1="9.5" y1="2.5" x2="2.5" y2="9.5"/></svg>`;
+const iRetry=`<svg width="11" height="11" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 6.5a4.5 4.5 0 1 0 .9-2.8"/><polyline points="0.8,2.2 3.1,4.5 5.4,2.2"/></svg>`;
+
+function partCellHtml(r,pid){
+  const v=r.parts[pid];
+  if(v){
+    const short=v.length>11?v.slice(0,11)+'…':v;
+    return`<div class="part-cell scanned"><span class="part-val">${short}</span></div>`;
+  }
+  return`<div class="part-cell"><span class="part-empty">—</span></div>`;
+}
+
+function testCellHtml(r,tid){
+  // Never show test state if not fully scanned
+  if(!allScanned(r))return`<div class="test-cell"><span class="part-empty">—</span></div>`;
+  const s=r.tests[tid];
+  if(s==='idle')   return`<div class="test-cell"><span class="part-empty">—</span></div>`;
+  if(s==='running')return`<div class="test-cell running"><span class="spin t-run"></span></div>`;
+  if(s==='pass')   return`<div class="test-cell pass"><span class="t-pass">${iCheck}</span></div>`;
+  if(s==='fail')   return`<div class="test-cell fail" onclick="retryTest('${r.id}','${tid}')" title="Click to retry"><div class="t-fail">${iX}${iRetry}</div></div>`;
+  return`<div class="test-cell"><span class="part-empty">—</span></div>`;
+}
+
+function visCellHtml(r){
+  // Never show if not fully scanned
+  if(!allScanned(r))return`<div class="vis-cell"><span class="part-empty">—</span></div>`;
+  const v=r.visual;
+  if(v==='idle')   return`<div class="vis-cell"><span class="part-empty">—</span></div>`;
+  if(v==='pass')   return`<div class="vis-cell pass"><span class="vis-label vpass">${iCheck} Confirmed</span></div>`;
+  if(v==='fail')   return`<div class="vis-cell fail-vis"><span class="vis-label vfail">${iX} Rejected</span></div>`;
+  return`<div class="vis-cell awaiting">
+    <span class="vis-label">Confirm visual?</span>
+    <div class="vis-btns">
+      <button class="vbtn vbtn-no"  onclick="confirmVisual('${r.id}',false)">${iX} No</button>
+      <button class="vbtn vbtn-yes" onclick="confirmVisual('${r.id}',true)">${iCheck} Yes</button>
+    </div>
+  </div>`;
+}
+
+function statusHtml(r){
+  if(r.status==='scanning')return`<span class="pill pill-blue">Scanning</span>`;
+  if(r.status==='testing') return`<span class="pill pill-amber">Testing…</span>`;
+  if(r.status==='pass')    return`<span class="pill pill-green">${iCheck} Passed</span>`;
+  if(r.status==='fail')    return`<span class="pill pill-red">${iX} Failed</span>`;
+  return`—`;
+}
+
+function rowHtml(r){
+  const parts=PARTS.map(p=>`<td>${partCellHtml(r,p.id)}</td>`).join('');
+  const tests=TESTS.map((t,i)=>`<td${i===0?' class="sep-left"':''}>${testCellHtml(r,t.id)}</td>`).join('');
+  return`<tr id="row-${r.id}">
+    <td><span class="rid">${r.id}</span><span class="rtime">${r.time}</span></td>
+    ${parts}${tests}
+    <td>${visCellHtml(r)}</td>
+    <td class="status-td">${statusHtml(r)}</td>
+  </tr>`;
+}
+
+function renderRow(railId){
+  const r=byId(railId);if(!r)return;
+  const el=document.getElementById('row-'+railId);
+  if(el)el.outerHTML=rowHtml(r);else renderAll();
+}
+
+function renderAll(){
+  const tb=document.getElementById('railBody');
+  tb.innerHTML=rails.length
+    ?rails.map(rowHtml).join('')
+    :`<tr><td colspan="14" style="text-align:center;padding:64px 0;color:var(--g400);font-size:13px;">Scan the first part to begin</td></tr>`;
+}
+
+document.getElementById('scanInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){const v=e.target.value.trim();if(v){handleScan(v);e.target.value='';}}
+});
+document.getElementById('scanInput').focus();
+
+// ── DEMO DATA — tells a clear story ──
+// Row 1 (top): partially scanned — only 3 of 6 parts, no tests
+// Row 2: fully scanned, tests running mid-way
+// Row 3: fully scanned, all tests done, awaiting visual confirm
+// Row 4: fully scanned, all passed including visual — complete
+// Row 5: fully scanned, one test failed — needs retry
+
+function seedRail(id, time, partials, testStates, visual, status, done){
+  const r={id,time,parts:{},tests:{},visual,status,done};
+  PARTS.forEach(p=>r.parts[p.id]=partials[p.id]||null);
+  TESTS.forEach(t=>r.tests[t.id]=testStates[t.id]||'idle');
+  rails.push(r);
+}
+
+// Row 5 — newest, only 3 parts scanned, no tests
+seedRail('RAIL-005','4:42 PM',
+  {camera:'CAM-E001',esl:'ESL-E002',battery:'BAT-E003'},
+  {},
+  'idle','scanning',false
+);
+
+// Row 4 — all scanned, tests mid-flight (some done, some running)
+seedRail('RAIL-004','4:39 PM',
+  {camera:'CAM-D001',esl:'ESL-D002',battery:'BAT-D003',rail:'RAIL-D004',endcap:'CAP-D005',eslend:'ESLEND-D06'},
+  {ble:'pass',wifi:'running',motor:'idle',tcam:'idle',leds:'idle'},
+  'idle','testing',false
+);
+
+// Row 3 — all scanned, all tests done, visual awaiting
+seedRail('RAIL-003','4:35 PM',
+  {camera:'CAM-C001',esl:'ESL-C002',battery:'BAT-C003',rail:'RAIL-C004',endcap:'CAP-C005',eslend:'ESLEND-C06'},
+  {ble:'pass',wifi:'pass',motor:'pass',tcam:'pass',leds:'pass'},
+  'awaiting','testing',false
+);
+
+// Row 2 — all passed including visual — complete green
+seedRail('RAIL-002','4:28 PM',
+  {camera:'CAM-B001',esl:'ESL-B002',battery:'BAT-B003',rail:'RAIL-B004',endcap:'CAP-B005',eslend:'ESLEND-B06'},
+  {ble:'pass',wifi:'pass',motor:'pass',tcam:'pass',leds:'pass'},
+  'pass','pass',true
+);
+
+// Row 1 — bottom / oldest — one test failed, needs retry
+seedRail('RAIL-001','4:21 PM',
+  {camera:'CAM-A001',esl:'ESL-A002',battery:'BAT-A003',rail:'RAIL-A004',endcap:'CAP-A005',eslend:'ESLEND-A06'},
+  {ble:'pass',wifi:'fail',motor:'pass',tcam:'pass',leds:'pass'},
+  'pass','fail',true
+);
+
+renderAll();
+
+// Keep the running test on RAIL-004 animated
+setTimeout(()=>{
+  const r=byId('RAIL-004');if(!r)return;
+  r.tests.wifi='pass';
+  r.tests.motor='running';renderRow('RAIL-004');
+  setTimeout(()=>{
+    const r2=byId('RAIL-004');if(!r2)return;
+    r2.tests.motor='pass';r2.tests.tcam='running';renderRow('RAIL-004');
+    setTimeout(()=>{
+      const r3=byId('RAIL-004');if(!r3)return;
+      r3.tests.tcam='pass';r3.tests.leds='running';renderRow('RAIL-004');
+      setTimeout(()=>{
+        const r4=byId('RAIL-004');if(!r4)return;
+        r4.tests.leds='pass';r4.visual='awaiting';renderRow('RAIL-004');
+      },1100);
+    },1000);
+  },1000);
+},1200);
+</script>
