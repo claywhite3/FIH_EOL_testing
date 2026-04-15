@@ -1,4 +1,3 @@
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -12,6 +11,60 @@
 }
 body{font-family:var(--font);background:var(--g50);color:var(--navy);font-size:13px;}
 
+/* ── LOGIN ── */
+#login-screen{min-height:100vh;background:var(--navy);display:flex;align-items:center;justify-content:center;}
+.lcard{background:#fff;border-radius:12px;padding:32px;width:380px;}
+.lcard-brand{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+.lcard-dot{width:24px;height:24px;border-radius:5px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+.lcard-name{font-size:14px;font-weight:600;color:var(--navy);}
+.lcard h2{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.lcard p{font-size:12px;color:var(--g400);margin-bottom:22px;}
+.lf{margin-bottom:14px;}
+.lf label{display:block;font-size:11px;font-weight:600;color:var(--g600);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.lf select,.lf input{width:100%;padding:9px 11px;border:1.5px solid var(--g200);border-radius:7px;font-size:13px;font-family:var(--font);color:var(--navy);background:var(--g50);outline:none;}
+.lf select:focus,.lf input:focus{border-color:var(--teal);}
+.lbtn{width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);margin-top:4px;}
+.lbtn:hover{background:#0284C7;}
+
+/* ── CHANGE OPERATOR MODAL ── */
+#op-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;align-items:center;justify-content:center;}
+#op-modal-wrap.open{display:flex;}
+.op-modal{background:#fff;border-radius:12px;padding:28px;width:340px;}
+.op-modal h3{font-size:14px;font-weight:600;margin-bottom:4px;}
+.op-modal p{font-size:12px;color:var(--g400);margin-bottom:18px;}
+.op-modal-btns{display:flex;gap:8px;margin-top:14px;}
+.op-modal-btns button{flex:1;padding:9px;border-radius:7px;font-size:13px;font-family:var(--font);cursor:pointer;}
+.om-cancel{background:#fff;border:1.5px solid var(--g200);color:var(--g600);}
+.om-save{background:var(--teal);color:#fff;border:none;font-weight:600;}
+.om-save:hover{background:#0284C7;}
+
+/* ── INCOMPLETE MODAL ── */
+#incomplete-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:60;align-items:center;justify-content:center;}
+#incomplete-modal-wrap.open{display:flex;}
+.incomplete-modal{background:#fff;border-radius:12px;padding:28px;width:340px;}
+.incomplete-modal h3{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.incomplete-modal p{font-size:13px;color:var(--g600);margin-bottom:14px;}
+.incomplete-list{background:var(--amber-bg);border:1px solid var(--amber-b);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;}
+.incomplete-ok{width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);}
+.incomplete-ok:hover{background:#0284C7;}
+
+/* ── OVERRIDE MODAL ── */
+#override-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:60;align-items:center;justify-content:center;}
+#override-modal-wrap.open{display:flex;}
+.override-modal{background:#fff;border-radius:12px;padding:28px;width:360px;}
+.override-modal h3{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.override-modal p{font-size:13px;color:var(--g600);margin-bottom:6px;}
+.override-old{font-size:11px;color:var(--g400);margin-bottom:18px;}
+.override-old span{font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums;}
+.override-btns{display:flex;gap:8px;}
+.override-btns button{flex:1;padding:9px;border-radius:7px;font-size:13px;font-family:var(--font);cursor:pointer;}
+.ob-cancel{background:#fff;border:1.5px solid var(--g200);color:var(--g600);}
+.ob-confirm{background:var(--teal);color:#fff;border:none;font-weight:600;}
+.ob-confirm:hover{background:#0284C7;}
+
+/* ── MAIN APP ── */
+#app-screen{display:none;}
+
 .topbar{background:var(--navy);height:50px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
 .brand{display:flex;align-items:center;gap:10px;}
 .brand-dot{width:24px;height:24px;border-radius:5px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
@@ -19,6 +72,11 @@ body{font-family:var(--font);background:var(--g50);color:var(--navy);font-size:1
 .brand-div{width:1px;height:16px;background:rgba(255,255,255,.15);}
 .brand-sub{font-size:12px;color:rgba(255,255,255,.4);}
 .station-tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:99px;background:rgba(14,165,233,.2);color:var(--teal-mid);}
+.op-tag{font-size:12px;color:rgba(255,255,255,.5);}
+.op-tag strong{color:rgba(255,255,255,.8);font-weight:600;}
+.nav-act{background:none;border:none;font-size:11px;color:rgba(255,255,255,.3);cursor:pointer;font-family:var(--font);text-decoration:underline;text-underline-offset:2px;padding:0;}
+.nav-act:hover{color:rgba(255,255,255,.65);}
+.nav-sep{color:rgba(255,255,255,.2);font-size:11px;}
 .clk{font-size:12px;color:rgba(255,255,255,.35);font-variant-numeric:tabular-nums;}
 
 .scanbar{background:#fff;border-bottom:1px solid var(--g200);padding:10px 28px;display:flex;align-items:center;gap:12px;}
@@ -65,17 +123,11 @@ tbody td:last-child{border-right:none;}
 .rid{font-size:12px;font-weight:600;display:block;}
 .rtime{font-size:10px;color:var(--g400);display:block;margin-top:2px;}
 
-/* Part cell — NO checkmark, just ID text in green */
-.part-cell{
-  display:flex;align-items:center;justify-content:center;
-  height:44px;border-radius:7px;border:1.5px solid var(--g200);
-  background:var(--g50);margin:2px;transition:all .25s;
-}
+.part-cell{display:flex;align-items:center;justify-content:center;height:44px;border-radius:7px;border:1.5px solid var(--g200);background:var(--g50);margin:2px;transition:all .25s;}
 .part-cell.scanned{border-color:var(--green-b);background:var(--green-bg);}
 .part-val{font-size:11px;font-weight:600;color:var(--green-t);font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100px;padding:0 6px;}
 .part-empty{font-size:15px;color:var(--g300);font-weight:300;line-height:1;}
 
-/* Test cell */
 .test-cell{display:flex;align-items:center;justify-content:center;height:44px;border-radius:7px;border:1.5px solid var(--g200);background:var(--g50);margin:2px;transition:all .2s;}
 .test-cell.running{border-color:var(--amber-b);background:var(--amber-bg);}
 .test-cell.pass{border-color:var(--green-b);background:var(--green-bg);}
@@ -86,7 +138,6 @@ tbody td:last-child{border-right:none;}
 .t-fail{display:flex;align-items:center;gap:4px;color:var(--red-t);}
 .t-run{color:var(--amber-t);}
 
-/* Visual confirm cell */
 .vis-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;height:44px;border-radius:7px;border:1.5px solid var(--g200);background:var(--g50);margin:2px;padding:4px 6px;transition:all .3s;}
 .vis-cell.awaiting{border-color:#F59E0B;background:var(--amber-bg);animation:pulseA 1.6s ease-in-out infinite;}
 @keyframes pulseA{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0);}50%{box-shadow:0 0 0 5px rgba(245,158,11,.2);}}
@@ -102,6 +153,9 @@ tbody td:last-child{border-right:none;}
 .vbtn-yes{background:#10B981;color:#fff;}
 .vbtn-no{background:#F87171;color:#fff;}
 
+/* operator attribution under confirmed */
+.vis-op{font-size:9px;color:var(--g400);margin-top:1px;}
+
 .status-td{padding:6px 10px !important;}
 .pill{font-size:11px;font-weight:500;padding:4px 11px;border-radius:99px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;}
 .pill-blue{background:var(--teal-light);color:#0369A1;}
@@ -113,65 +167,176 @@ tbody td:last-child{border-right:none;}
 @keyframes spin{to{transform:rotate(360deg);}}
 </style>
 
-<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Rail assembly grid — one row per rail, columns for each part and test</h2>
-
-<div style="min-height:100vh;background:var(--g50);">
-  <div class="topbar">
-    <div class="brand">
-      <div class="brand-dot">V</div>
-      <span class="brand-name">Vusion</span>
-      <div class="brand-div"></div>
-      <span class="brand-sub">Assembly QC</span>
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="lcard">
+    <div class="lcard-brand">
+      <div class="lcard-dot">V</div>
+      <span class="lcard-name">Vusion — Assembly QC</span>
     </div>
-    <div style="display:flex;align-items:center;gap:14px;">
-      <span class="station-tag">FIH — Station 4</span>
-      <span class="clk" id="clk">--:--:--</span>
+    <h2>Station setup</h2>
+    <p>Select your station and enter your operator ID to begin</p>
+    <div class="lf">
+      <label>Station</label>
+      <select id="l-station">
+        <option>FIH — Station 1</option>
+        <option>FIH — Station 2</option>
+        <option>FIH — Station 3</option>
+        <option selected>FIH — Station 4</option>
+      </select>
+    </div>
+    <div class="lf">
+      <label>Operator ID</label>
+      <input id="l-opid" type="text" placeholder="e.g. OP-4821" value="OP-4821" />
+    </div>
+    <button class="lbtn" onclick="doLogin()">Start session</button>
+  </div>
+</div>
+
+<!-- CHANGE OPERATOR MODAL -->
+<div id="op-modal-wrap">
+  <div class="op-modal">
+    <h3>Change operator</h3>
+    <p>Enter the new operator ID for this station session</p>
+    <div class="lf">
+      <label>Operator ID</label>
+      <input id="m-opid" type="text" placeholder="e.g. OP-1234" />
+    </div>
+    <div class="op-modal-btns">
+      <button class="om-cancel" onclick="closeOpModal()">Cancel</button>
+      <button class="om-save" onclick="saveOp()">Update</button>
     </div>
   </div>
+</div>
 
-  <div class="scanbar">
-    <div class="scanfield">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--g400);flex-shrink:0"><rect x="1" y="4" width="14" height="8" rx="1.5"/><line x1="4" y1="6.5" x2="4" y2="9.5"/><line x1="6.5" y1="6.5" x2="6.5" y2="9.5"/><line x1="8.5" y1="6.5" x2="10" y2="9.5"/><line x1="10" y1="6.5" x2="10" y2="9.5"/><line x1="12" y1="6.5" x2="12" y2="9.5"/></svg>
-      <input id="scanInput" type="text" placeholder="Scan any part ID to begin or update a rail…" autocomplete="off"/>
-    </div>
-    <span class="scan-hint">Press <span class="kbd">Enter</span> to submit</span>
+<!-- INCOMPLETE MODAL -->
+<div id="incomplete-modal-wrap">
+  <div class="incomplete-modal">
+    <h3>Scan remaining parts</h3>
+    <p>The following parts haven't been scanned yet:</p>
+    <div class="incomplete-list" id="incomplete-body"></div>
+    <button class="incomplete-ok" onclick="document.getElementById('incomplete-modal-wrap').classList.remove('open');document.getElementById('scanInput').focus();">Got it</button>
   </div>
+</div>
 
-  <div class="tbl-wrap">
-    <table>
-      <colgroup>
-        <col class="c-rail">
-        <col class="c-part"><col class="c-part"><col class="c-part">
-        <col class="c-part"><col class="c-part"><col class="c-part">
-        <col class="c-test"><col class="c-test"><col class="c-test">
-        <col class="c-test"><col class="c-test">
-        <col class="c-visual">
-        <col class="c-status">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>Rail</th>
-          <th class="th-parts">Camera</th>
-          <th class="th-parts">ESL</th>
-          <th class="th-parts">Battery</th>
-          <th class="th-parts">Rail ID</th>
-          <th class="th-parts">End cap</th>
-          <th class="th-parts">ESL end</th>
-          <th class="th-tests sep-left">BLE token</th>
-          <th class="th-tests">Wi-Fi</th>
-          <th class="th-tests">Motor</th>
-          <th class="th-tests">Camera</th>
-          <th class="th-tests">LEDs</th>
-          <th class="th-tests">Visual confirm</th>
-          <th class="th-status">Status</th>
-        </tr>
-      </thead>
-      <tbody id="railBody"></tbody>
-    </table>
+<!-- OVERRIDE MODAL -->
+<div id="override-modal-wrap">
+  <div class="override-modal">
+    <h3 id="override-title">New part ID detected</h3>
+    <p id="override-body">A different ID was scanned for this part type. Override the existing value?</p>
+    <div class="override-old">Current value: <span id="override-current">—</span> → <span id="override-new">—</span></div>
+    <div class="override-btns">
+      <button class="ob-cancel" onclick="resolveOverride(false)">Keep existing</button>
+      <button class="ob-confirm" onclick="resolveOverride(true)">Override</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-screen">
+  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Rail assembly grid — one row per rail, columns for each part and test</h2>
+
+  <div style="min-height:100vh;background:var(--g50);">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-dot">V</div>
+        <span class="brand-name">Vusion</span>
+        <div class="brand-div"></div>
+        <span class="brand-sub">Assembly QC</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="station-tag" id="hdr-station">FIH — Station 4</span>
+        <span class="op-tag">Operator: <strong id="hdr-opid">—</strong></span>
+        <span class="nav-sep">·</span>
+        <button class="nav-act" onclick="openOpModal()">change</button>
+        <span class="nav-sep">·</span>
+        <button class="nav-act" onclick="doLogout()">logout</button>
+        <span class="nav-sep" style="margin-left:4px;">|</span>
+        <span class="clk" id="clk">--:--:--</span>
+      </div>
+    </div>
+
+    <div class="scanbar">
+      <div class="scanfield">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--g400);flex-shrink:0"><rect x="1" y="4" width="14" height="8" rx="1.5"/><line x1="4" y1="6.5" x2="4" y2="9.5"/><line x1="6.5" y1="6.5" x2="6.5" y2="9.5"/><line x1="8.5" y1="6.5" x2="10" y2="9.5"/><line x1="10" y1="6.5" x2="10" y2="9.5"/><line x1="12" y1="6.5" x2="12" y2="9.5"/></svg>
+        <input id="scanInput" type="text" placeholder="Scan any part ID to begin or update a rail…" autocomplete="off"/>
+      </div>
+      <span class="scan-hint">Press <span class="kbd">Enter</span> to submit</span>
+      <span class="scan-hint" style="margin-left:16px;padding-left:16px;border-left:1px solid var(--g200);">Press <span class="kbd">Ctrl S</span> to save rail &amp; start testing</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <colgroup>
+          <col class="c-rail">
+          <col class="c-part"><col class="c-part"><col class="c-part">
+          <col class="c-part"><col class="c-part"><col class="c-part">
+          <col class="c-test"><col class="c-test"><col class="c-test">
+          <col class="c-test"><col class="c-test">
+          <col class="c-visual">
+          <col class="c-status">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Rail</th>
+            <th class="th-parts">Camera</th>
+            <th class="th-parts">ESL</th>
+            <th class="th-parts">Battery</th>
+            <th class="th-parts">Rail ID</th>
+            <th class="th-parts">End cap</th>
+            <th class="th-parts">ESL end</th>
+            <th class="th-tests sep-left">BLE token</th>
+            <th class="th-tests">Wi-Fi</th>
+            <th class="th-tests">Motor</th>
+            <th class="th-tests">Camera</th>
+            <th class="th-tests">LEDs</th>
+            <th class="th-tests">Visual confirm</th>
+            <th class="th-status">Status</th>
+          </tr>
+        </thead>
+        <tbody id="railBody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
+let currentOp = '';
+
+function doLogin() {
+  const id = document.getElementById('l-opid').value.trim();
+  const st = document.getElementById('l-station').value;
+  if (!id) { alert('Please enter an operator ID'); return; }
+  currentOp = id;
+  document.getElementById('hdr-station').textContent = st;
+  document.getElementById('hdr-opid').textContent = id;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-screen').style.display = 'block';
+  document.getElementById('scanInput').focus();
+}
+
+function doLogout() {
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('l-opid').value = '';
+  currentOp = '';
+}
+
+function openOpModal() {
+  document.getElementById('m-opid').value = currentOp;
+  document.getElementById('op-modal-wrap').classList.add('open');
+}
+function closeOpModal() {
+  document.getElementById('op-modal-wrap').classList.remove('open');
+}
+function saveOp() {
+  const id = document.getElementById('m-opid').value.trim();
+  if (!id) { alert('Please enter an operator ID'); return; }
+  currentOp = id;
+  document.getElementById('hdr-opid').textContent = id;
+  closeOpModal();
+}
+
 const PARTS=[
   {id:'camera',label:'Camera'},
   {id:'esl',   label:'ESL'},
@@ -192,7 +357,6 @@ let rails=[];let ctr=1;
 
 function ts(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(()=>{const e=document.getElementById('clk');if(e)e.textContent=ts();},1000);
-document.getElementById('clk').textContent=ts();
 
 function byId(id){return rails.find(r=>r.id===id);}
 
@@ -208,9 +372,9 @@ function guessType(code){
 }
 
 function newRail(){
-  const r={id:'RAIL-'+String(ctr++).padStart(3,'0'),time:ts(),parts:{},tests:{},visual:'idle',status:'scanning',done:false};
+  const r={id:'RAIL-'+String(ctr++).padStart(3,'0'),time:ts(),parts:{},tests:{},visual:'idle',visualBy:null,visualFailCount:0,status:'scanning',done:false,failCount:{}};
   PARTS.forEach(p=>r.parts[p.id]=null);
-  TESTS.forEach(t=>r.tests[t.id]='idle');
+  TESTS.forEach(t=>{r.tests[t.id]='idle';r.failCount[t.id]=0;});
   return r;
 }
 
@@ -245,19 +409,66 @@ function finalise(r){
   r.done=true;
 }
 
+// Override modal state
+let pendingOverride = null;
+
 function handleScan(code){
   code=code.trim();if(!code)return;
   const pt=guessType(code);
-  let target=null;
-  for(const r of rails){if(r.status==='scanning'&&r.parts[pt]===null){target=r;break;}}
+
+  // Find the active scanning rail (top of stack, status=scanning)
+  let target = rails.find(r=>r.status==='scanning') || null;
+
+  // If no active rail, start a new one
   if(!target){const nr=newRail();rails.unshift(nr);target=nr;}
+
+  // If this part slot is already filled — show override popup
+  if(target.parts[pt]!==null){
+    const partLabel = PARTS.find(p=>p.id===pt)?.label || pt;
+    pendingOverride = {railId:target.id, pt, newVal:code};
+    document.getElementById('override-title').textContent = 'New '+partLabel+' ID detected';
+    document.getElementById('override-body').textContent = 'A different '+partLabel+' was scanned. Override the existing value?';
+    document.getElementById('override-current').textContent = target.parts[pt];
+    document.getElementById('override-new').textContent = code;
+    document.getElementById('override-modal-wrap').classList.add('open');
+    return;
+  }
+
   target.parts[pt]=code;
-  if(allScanned(target))startTests(target);
+  renderAll();
+}
+
+function resolveOverride(doIt){
+  document.getElementById('override-modal-wrap').classList.remove('open');
+  if(doIt && pendingOverride){
+    const r=byId(pendingOverride.railId);
+    if(r){r.parts[pendingOverride.pt]=pendingOverride.newVal;renderAll();}
+  }
+  pendingOverride=null;
+  document.getElementById('scanInput').focus();
+}
+
+function saveAndStartTesting(){
+  const r = rails.find(r=>r.status==='scanning');
+  if(!r){return;}
+  const missing = PARTS.filter(p=>r.parts[p.id]===null).map(p=>p.label);
+  if(missing.length>0){
+    const list = missing.map(m=>`<li style="padding:3px 0;color:var(--navy);font-weight:500;">${m}</li>`).join('');
+    document.getElementById('incomplete-body').innerHTML = `<ul style="list-style:none;margin:0;padding:0;">${list}</ul>`;
+    document.getElementById('incomplete-modal-wrap').classList.add('open');
+    return;
+  }
+  startTests(r);
   renderAll();
 }
 
 window.retryTest=function(railId,tid){
   const r=byId(railId);if(!r)return;
+  r.failCount[tid]=(r.failCount[tid]||0)+1;
+  if(r.failCount[tid]>=2){
+    r.status='rejected';r.done=true;
+    renderRow(railId);return;
+  }
   r.tests[tid]='running';r.done=false;r.status='testing';
   renderRow(railId);
   setTimeout(()=>{
@@ -271,9 +482,31 @@ window.retryTest=function(railId,tid){
 
 window.confirmVisual=function(railId,result){
   const r=byId(railId);if(!r)return;
-  r.visual=result?'pass':'fail';
-  const allDone=TESTS.every(t=>['pass','fail'].includes(r.tests[t.id]));
-  if(allDone)finalise(r);
+  if(result){
+    r.visual='pass';
+    r.visualBy=currentOp;
+    const allDone=TESTS.every(t=>['pass','fail'].includes(r.tests[t.id]));
+    if(allDone)finalise(r);
+    renderRow(railId);
+    return;
+  }
+  // No — increment fail count
+  r.visualFailCount=(r.visualFailCount||0)+1;
+  r.visualBy=currentOp;
+  if(r.visualFailCount>=2){
+    r.visual='fail';
+    r.status='rejected';
+    r.done=true;
+  } else {
+    // First failure — show re-inspect button like a failed test
+    r.visual='reinspect';
+  }
+  renderRow(railId);
+};
+
+window.reinspectVisual=function(railId){
+  const r=byId(railId);if(!r)return;
+  r.visual='awaiting';
   renderRow(railId);
 };
 
@@ -291,7 +524,6 @@ function partCellHtml(r,pid){
 }
 
 function testCellHtml(r,tid){
-  // Never show test state if not fully scanned
   if(!allScanned(r))return`<div class="test-cell"><span class="part-empty">—</span></div>`;
   const s=r.tests[tid];
   if(s==='idle')   return`<div class="test-cell"><span class="part-empty">—</span></div>`;
@@ -302,12 +534,12 @@ function testCellHtml(r,tid){
 }
 
 function visCellHtml(r){
-  // Never show if not fully scanned
   if(!allScanned(r))return`<div class="vis-cell"><span class="part-empty">—</span></div>`;
   const v=r.visual;
-  if(v==='idle')   return`<div class="vis-cell"><span class="part-empty">—</span></div>`;
-  if(v==='pass')   return`<div class="vis-cell pass"><span class="vis-label vpass">${iCheck} Confirmed</span></div>`;
-  if(v==='fail')   return`<div class="vis-cell fail-vis"><span class="vis-label vfail">${iX} Rejected</span></div>`;
+  if(v==='idle')      return`<div class="vis-cell"><span class="part-empty">—</span></div>`;
+  if(v==='pass')      return`<div class="vis-cell pass"><span class="vis-label vpass">${iCheck} Confirmed</span>${r.visualBy?`<span class="vis-op">${r.visualBy}</span>`:''}</div>`;
+  if(v==='fail')      return`<div class="vis-cell fail-vis"><span class="vis-label vfail">${iX} Rejected</span>${r.visualBy?`<span class="vis-op">${r.visualBy}</span>`:''}</div>`;
+  if(v==='reinspect') return`<div class="vis-cell fail" onclick="reinspectVisual('${r.id}')" style="cursor:pointer;" title="Click to re-inspect"><div class="t-fail">${iX}${iRetry}</div></div>`;
   return`<div class="vis-cell awaiting">
     <span class="vis-label">Confirm visual?</span>
     <div class="vis-btns">
@@ -318,10 +550,11 @@ function visCellHtml(r){
 }
 
 function statusHtml(r){
-  if(r.status==='scanning')return`<span class="pill pill-blue">Scanning</span>`;
-  if(r.status==='testing') return`<span class="pill pill-amber">Testing…</span>`;
-  if(r.status==='pass')    return`<span class="pill pill-green">${iCheck} Passed</span>`;
-  if(r.status==='fail')    return`<span class="pill pill-red">${iX} Failed</span>`;
+  if(r.status==='rejected')return`<span class="pill pill-red">${iX} Rejected</span>`;
+  if(r.status==='scanning') return`<span class="pill pill-blue">Scanning</span>`;
+  if(r.status==='testing')  return`<span class="pill pill-amber">Testing…</span>`;
+  if(r.status==='pass')     return`<span class="pill pill-green">${iCheck} Passed</span>`;
+  if(r.status==='fail')     return`<span class="pill pill-red">${iX} Failed</span>`;
   return`—`;
 }
 
@@ -352,64 +585,51 @@ function renderAll(){
 document.getElementById('scanInput').addEventListener('keydown',e=>{
   if(e.key==='Enter'){const v=e.target.value.trim();if(v){handleScan(v);e.target.value='';}}
 });
-document.getElementById('scanInput').focus();
 
-// ── DEMO DATA — tells a clear story ──
-// Row 1 (top): partially scanned — only 3 of 6 parts, no tests
-// Row 2: fully scanned, tests running mid-way
-// Row 3: fully scanned, all tests done, awaiting visual confirm
-// Row 4: fully scanned, all passed including visual — complete
-// Row 5: fully scanned, one test failed — needs retry
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){
+    e.preventDefault();
+    saveAndStartTesting();
+  }
+});
 
-function seedRail(id, time, partials, testStates, visual, status, done){
-  const r={id,time,parts:{},tests:{},visual,status,done};
+function seedRail(id,time,partials,testStates,visual,visualBy,status,done){
+  const r={id,time,parts:{},tests:{},visual,visualBy:visualBy||null,visualFailCount:0,status,done,failCount:{}};
   PARTS.forEach(p=>r.parts[p.id]=partials[p.id]||null);
-  TESTS.forEach(t=>r.tests[t.id]=testStates[t.id]||'idle');
+  TESTS.forEach(t=>{r.tests[t.id]=testStates[t.id]||'idle';r.failCount[t.id]=0;});
   rails.push(r);
 }
 
-// Row 5 — newest, only 3 parts scanned, no tests
 seedRail('RAIL-005','4:42 PM',
   {camera:'CAM-E001',esl:'ESL-E002',battery:'BAT-E003'},
-  {},
-  'idle','scanning',false
-);
+  {},'idle',null,'scanning',false);
 
-// Row 4 — all scanned, tests mid-flight (some done, some running)
 seedRail('RAIL-004','4:39 PM',
   {camera:'CAM-D001',esl:'ESL-D002',battery:'BAT-D003',rail:'RAIL-D004',endcap:'CAP-D005',eslend:'ESLEND-D06'},
   {ble:'pass',wifi:'running',motor:'idle',tcam:'idle',leds:'idle'},
-  'idle','testing',false
-);
+  'idle',null,'testing',false);
 
-// Row 3 — all scanned, all tests done, visual awaiting
 seedRail('RAIL-003','4:35 PM',
   {camera:'CAM-C001',esl:'ESL-C002',battery:'BAT-C003',rail:'RAIL-C004',endcap:'CAP-C005',eslend:'ESLEND-C06'},
   {ble:'pass',wifi:'pass',motor:'pass',tcam:'pass',leds:'pass'},
-  'awaiting','testing',false
-);
+  'awaiting',null,'testing',false);
 
-// Row 2 — all passed including visual — complete green
 seedRail('RAIL-002','4:28 PM',
   {camera:'CAM-B001',esl:'ESL-B002',battery:'BAT-B003',rail:'RAIL-B004',endcap:'CAP-B005',eslend:'ESLEND-B06'},
   {ble:'pass',wifi:'pass',motor:'pass',tcam:'pass',leds:'pass'},
-  'pass','pass',true
-);
+  'pass','OP-4821','pass',true);
 
-// Row 1 — bottom / oldest — one test failed, needs retry
 seedRail('RAIL-001','4:21 PM',
   {camera:'CAM-A001',esl:'ESL-A002',battery:'BAT-A003',rail:'RAIL-A004',endcap:'CAP-A005',eslend:'ESLEND-A06'},
   {ble:'pass',wifi:'fail',motor:'pass',tcam:'pass',leds:'pass'},
-  'pass','fail',true
-);
+  'pass','OP-4821','fail',true);
 
+ctr=6;
 renderAll();
 
-// Keep the running test on RAIL-004 animated
 setTimeout(()=>{
   const r=byId('RAIL-004');if(!r)return;
-  r.tests.wifi='pass';
-  r.tests.motor='running';renderRow('RAIL-004');
+  r.tests.wifi='pass';r.tests.motor='running';renderRow('RAIL-004');
   setTimeout(()=>{
     const r2=byId('RAIL-004');if(!r2)return;
     r2.tests.motor='pass';r2.tests.tcam='running';renderRow('RAIL-004');
